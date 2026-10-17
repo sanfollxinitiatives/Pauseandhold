@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next';
 import { SITE_CONFIG } from '@/lib/seo';
 import { SAMPLE_STORIES } from '@/data/stories';
 
+export const dynamic = 'force-static';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = SITE_CONFIG.siteUrl;
 
