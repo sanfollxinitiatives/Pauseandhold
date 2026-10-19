@@ -10,71 +10,99 @@ export const InteractiveCursor: React.FC = () => {
     if (prefersReducedMotion() || typeof window === 'undefined') return;
     if (window.innerWidth < 1024) return; // Desktop only
 
-    const { gsap } = getGSAP();
-    const cursor = cursorRef.current;
-    if (!cursor) return;
+    try {
+      const { gsap } = getGSAP();
+      const cursor = cursorRef.current;
+      if (!cursor) return;
 
-    const cx = gsap.quickTo(cursor, 'x', { duration: 0.35, ease: 'power3' });
-    const cy = gsap.quickTo(cursor, 'y', { duration: 0.35, ease: 'power3' });
+      const cx = gsap.quickTo(cursor, 'x', { duration: 0.35, ease: 'power3' });
+      const cy = gsap.quickTo(cursor, 'y', { duration: 0.35, ease: 'power3' });
 
-    const handleMouseMove = (e: MouseEvent) => {
-      cx(e.clientX);
-      cy(e.clientY);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    // Expand cursor over interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, img, input, textarea');
-    const handleMouseEnter = () => gsap.to(cursor, { scale: 3.2, duration: 0.35, ease: 'power2.out' });
-    const handleMouseLeave = () => gsap.to(cursor, { scale: 1, duration: 0.35, ease: 'power2.out' });
-
-    interactiveElements.forEach((el) => {
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    });
-
-    // Magnetic buttons
-    const magneticElements = document.querySelectorAll<HTMLElement>('.magnetic');
-    const cleanupMagnetic: Array<() => void> = [];
-
-    magneticElements.forEach((el) => {
-      const onMove = (e: MouseEvent) => {
-        const r = el.getBoundingClientRect();
-        gsap.to(el, {
-          x: (e.clientX - r.left - r.width / 2) * 0.35,
-          y: (e.clientY - r.top - r.height / 2) * 0.35,
-          duration: 0.4,
-          ease: 'power2.out',
-        });
+      const handleMouseMove = (e: MouseEvent) => {
+        try {
+          cx(e.clientX);
+          cy(e.clientY);
+        } catch {
+          // ignore
+        }
       };
 
-      const onLeave = () => {
-        gsap.to(el, {
-          x: 0,
-          y: 0,
-          duration: 0.8,
-          ease: 'elastic.out(1, 0.4)',
-        });
+      window.addEventListener('mousemove', handleMouseMove);
+
+      // Expand cursor over interactive elements
+      const interactiveElements = document.querySelectorAll('a, button, img, input, textarea');
+      const handleMouseEnter = () => {
+        try {
+          gsap.to(cursor, { scale: 3.2, duration: 0.35, ease: 'power2.out' });
+        } catch {
+          // ignore
+        }
+      };
+      const handleMouseLeave = () => {
+        try {
+          gsap.to(cursor, { scale: 1, duration: 0.35, ease: 'power2.out' });
+        } catch {
+          // ignore
+        }
       };
 
-      el.addEventListener('mousemove', onMove);
-      el.addEventListener('mouseleave', onLeave);
-
-      cleanupMagnetic.push(() => {
-        el.removeEventListener('mousemove', onMove);
-        el.removeEventListener('mouseleave', onLeave);
-      });
-    });
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
       interactiveElements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
+        el.addEventListener('mouseenter', handleMouseEnter);
+        el.addEventListener('mouseleave', handleMouseLeave);
       });
-      cleanupMagnetic.forEach((fn) => fn());
-    };
+
+      // Magnetic buttons
+      const magneticElements = document.querySelectorAll<HTMLElement>('.magnetic');
+      const cleanupMagnetic: Array<() => void> = [];
+
+      magneticElements.forEach((el) => {
+        const onMove = (e: MouseEvent) => {
+          try {
+            const r = el.getBoundingClientRect();
+            gsap.to(el, {
+              x: (e.clientX - r.left - r.width / 2) * 0.35,
+              y: (e.clientY - r.top - r.height / 2) * 0.35,
+              duration: 0.4,
+              ease: 'power2.out',
+            });
+          } catch {
+            // ignore
+          }
+        };
+
+        const onLeave = () => {
+          try {
+            gsap.to(el, {
+              x: 0,
+              y: 0,
+              duration: 0.8,
+              ease: 'elastic.out(1, 0.4)',
+            });
+          } catch {
+            // ignore
+          }
+        };
+
+        el.addEventListener('mousemove', onMove);
+        el.addEventListener('mouseleave', onLeave);
+
+        cleanupMagnetic.push(() => {
+          el.removeEventListener('mousemove', onMove);
+          el.removeEventListener('mouseleave', onLeave);
+        });
+      });
+
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        interactiveElements.forEach((el) => {
+          el.removeEventListener('mouseenter', handleMouseEnter);
+          el.removeEventListener('mouseleave', handleMouseLeave);
+        });
+        cleanupMagnetic.forEach((cleanup) => cleanup());
+      };
+    } catch (err) {
+      console.warn('InteractiveCursor skipped:', err);
+    }
   }, []);
 
   return (

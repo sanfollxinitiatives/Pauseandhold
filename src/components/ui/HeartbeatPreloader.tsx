@@ -24,24 +24,28 @@ export const HeartbeatPreloader: React.FC<HeartbeatPreloaderProps> = ({ onComple
       return;
     }
 
-    const { gsap } = getGSAP();
-    const counterObj = { v: 0 };
+    let tl: gsap.core.Timeline | null = null;
+    let safetyTimeout: NodeJS.Timeout | null = null;
 
-    // Initial state setup for blur-to-visible reveal
-    gsap.set('.pre-word', { filter: 'blur(18px)', opacity: 0, y: 14, scale: 0.94 });
-    gsap.set('.pre-eyebrow', { filter: 'blur(12px)', opacity: 0, y: -6 });
-    gsap.set('.pre-heart-wrap', { filter: 'blur(14px)', opacity: 0, scale: 0.75 });
-    gsap.set('.pre-counter', { filter: 'blur(10px)', opacity: 0, y: 12 });
-    gsap.set('.pre-line-wrap', { opacity: 0, scaleX: 0.8 });
+    try {
+      const { gsap } = getGSAP();
+      const counterObj = { v: 0 };
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        if (containerRef.current) {
-          containerRef.current.style.display = 'none';
-        }
-        onComplete?.();
-      },
-    });
+      // Initial state setup for blur-to-visible reveal
+      gsap.set('.pre-word', { filter: 'blur(18px)', opacity: 0, y: 14, scale: 0.94 });
+      gsap.set('.pre-eyebrow', { filter: 'blur(12px)', opacity: 0, y: -6 });
+      gsap.set('.pre-heart-wrap', { filter: 'blur(14px)', opacity: 0, scale: 0.75 });
+      gsap.set('.pre-counter', { filter: 'blur(10px)', opacity: 0, y: 12 });
+      gsap.set('.pre-line-wrap', { opacity: 0, scaleX: 0.8 });
+
+      tl = gsap.timeline({
+        onComplete: () => {
+          if (containerRef.current) {
+            containerRef.current.style.display = 'none';
+          }
+          onComplete?.();
+        },
+      });
 
     // 1. Optical Blur-to-Visible Reveal Entrance
     tl.to(
@@ -139,17 +143,24 @@ export const HeartbeatPreloader: React.FC<HeartbeatPreloaderProps> = ({ onComple
         '-=0.2'
       );
 
-    // Fallback safety timeout so it never blocks the page
-    const safetyTimeout = setTimeout(() => {
+      // Fallback safety timeout so it never blocks the page
+      safetyTimeout = setTimeout(() => {
+        if (containerRef.current) {
+          containerRef.current.style.display = 'none';
+        }
+        onComplete?.();
+      }, 4200);
+    } catch (err) {
+      console.warn('Preloader animation error, falling back:', err);
       if (containerRef.current) {
         containerRef.current.style.display = 'none';
       }
       onComplete?.();
-    }, 4200);
+    }
 
     return () => {
-      clearTimeout(safetyTimeout);
-      tl.kill();
+      if (safetyTimeout) clearTimeout(safetyTimeout);
+      if (tl) tl.kill();
     };
   }, [onComplete]);
 

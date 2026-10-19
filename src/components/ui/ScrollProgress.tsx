@@ -7,23 +7,34 @@ export const ScrollProgress: React.FC = () => {
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (prefersReducedMotion() || !barRef.current) return;
+    if (prefersReducedMotion() || !barRef.current || typeof window === 'undefined') return;
 
-    const { gsap, ScrollTrigger } = getGSAP();
-    const bar = barRef.current;
+    try {
+      const { gsap, ScrollTrigger } = getGSAP();
+      const bar = barRef.current;
 
-    // Direct, GPU-accelerated scaleX mapping to total scroll progress
-    const st = ScrollTrigger.create({
-      start: 'top top',
-      end: 'max',
-      onUpdate: (self) => {
-        gsap.set(bar, { scaleX: self.progress });
-      },
-    });
+      const st = ScrollTrigger.create({
+        start: 'top top',
+        end: 'max',
+        onUpdate: (self) => {
+          try {
+            gsap.set(bar, { scaleX: self.progress });
+          } catch {
+            // ignore
+          }
+        },
+      });
 
-    return () => {
-      st.kill();
-    };
+      return () => {
+        try {
+          st.kill();
+        } catch {
+          // ignore
+        }
+      };
+    } catch (err) {
+      console.warn('ScrollProgress skipped:', err);
+    }
   }, []);
 
   return (

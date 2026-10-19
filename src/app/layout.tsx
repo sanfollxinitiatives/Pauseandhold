@@ -25,15 +25,22 @@ export default function RootLayout({
   const organizationSchema = getOrganizationJsonLd();
 
   return (
-    <html lang="en">
-      <body className="min-h-screen flex flex-col bg-[#F8F6EF] text-[#292C25] font-sans antialiased selection:bg-[#53664B] selection:text-[#F8F6EF]">
+    <html lang="en" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className="min-h-screen flex flex-col bg-[#F8F6EF] text-[#292C25] font-sans antialiased selection:bg-[#53664B] selection:text-[#F8F6EF]"
+      >
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema).replace(/</g, '\\u003c'),
+          }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema).replace(/</g, '\\u003c'),
+          }}
         />
         {/* Modern hairline scroll progress bar */}
         <ScrollProgress />

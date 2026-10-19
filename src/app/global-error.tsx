@@ -11,21 +11,18 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     console.error('Global layout error caught:', error);
-
-    // Auto-reload once if it's a network or chunk failure
-    if (
-      typeof window !== 'undefined' &&
-      (error.message?.includes('Loading chunk') ||
-        error.message?.includes('Failed to fetch') ||
-        error.message?.includes('ChunkLoadError'))
-    ) {
-      const hasReloaded = sessionStorage.getItem('p_h_global_reload');
-      if (!hasReloaded) {
-        sessionStorage.setItem('p_h_global_reload', '1');
-        window.location.reload();
-      }
-    }
   }, [error]);
+
+  const handleHardRefresh = () => {
+    try {
+      sessionStorage.clear();
+      localStorage.clear();
+    } catch {
+      // ignore storage errors
+    }
+    // Hard cache-busting refresh
+    window.location.href = window.location.pathname + '?v=' + Date.now();
+  };
 
   return (
     <html lang="en">
@@ -79,10 +76,22 @@ export default function GlobalError({
             color: #53664B;
           }
           .desc {
-            font-size: 15px;
+            font-size: 14px;
             line-height: 1.6;
             color: #575A51;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
+          }
+          .diagnostic {
+            background: rgba(83, 102, 75, 0.08);
+            border: 1px solid rgba(83, 102, 75, 0.2);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 12px;
+            color: #3F4F39;
+            margin-bottom: 24px;
+            text-align: left;
+            font-family: monospace;
+            word-break: break-all;
           }
           .btn-group {
             display: flex;
@@ -143,17 +152,21 @@ export default function GlobalError({
             <em>your memories.</em>
           </h1>
           <p className="desc">
-            A momentary pause occurred while preparing this experience. Click below to refresh the showcase.
+            A temporary browser cache or network update occurred. Click below to load the latest version.
           </p>
+
+          {error?.message ? (
+            <div className="diagnostic">
+              <strong>Notice:</strong> {error.message}
+              {error.digest ? <div>Digest: {error.digest}</div> : null}
+            </div>
+          ) : null}
 
           <div className="btn-group">
             <button
               type="button"
               className="btn-primary"
-              onClick={() => {
-                sessionStorage.removeItem('p_h_global_reload');
-                reset();
-              }}
+              onClick={handleHardRefresh}
             >
               Refresh Page
             </button>

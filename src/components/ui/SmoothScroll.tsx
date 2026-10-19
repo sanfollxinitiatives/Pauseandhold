@@ -10,36 +10,55 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    if (prefersReducedMotion()) return;
+    if (prefersReducedMotion() || typeof window === 'undefined') return;
 
-    // Initialize Lenis smooth inertial scrolling
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Luxurious exponential ease
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 0.95,
-      touchMultiplier: 1.5,
-    });
-    lenisRef.current = lenis;
+    try {
+      // Initialize Lenis smooth inertial scrolling
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.95,
+        touchMultiplier: 1.5,
+      });
+      lenisRef.current = lenis;
 
-    const { gsap, ScrollTrigger } = getGSAP();
+      const { gsap, ScrollTrigger } = getGSAP();
 
-    // Synchronize Lenis scroll events with GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+      // Synchronize Lenis scroll events with GSAP ScrollTrigger safely
+      const handleScroll = () => {
+        try {
+          ScrollTrigger?.update?.();
+        } catch {
+          // Ignore sync errors gracefully
+        }
+      };
+      lenis.on('scroll', handleScroll);
 
-    const updateTicker = (time: number) => {
-      lenis.raf(time * 1000);
-    };
+      const updateTicker = (time: number) => {
+        try {
+          lenis.raf(time * 1000);
+        } catch {
+          // Ignore animation frame errors
+        }
+      };
 
-    gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+      gsap.ticker.add(updateTicker);
+      gsap.ticker.lagSmoothing(0);
 
-    return () => {
-      gsap.ticker.remove(updateTicker);
-      lenis.destroy();
-    };
+      return () => {
+        try {
+          gsap.ticker.remove(updateTicker);
+          lenis.destroy();
+        } catch {
+          // Ignore cleanup errors
+        }
+      };
+    } catch (err) {
+      console.warn('SmoothScroll fallback to native scroll:', err);
+    }
   }, []);
 
   return <>{children}</>;
