@@ -66,7 +66,7 @@ export const MosaicGallery: React.FC = () => {
           {split('@pauseandhold')}
         </h2>
         <Link
-          href="/gallery"
+          href="/gallery/"
           className="text-xs sm:text-sm uppercase tracking-[0.2em] font-medium text-[#53664B] hover:text-[#3F4F39] transition-colors"
         >
           Portfolio →

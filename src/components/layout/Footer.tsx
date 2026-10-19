@@ -33,7 +33,7 @@ export const Footer: React.FC = () => {
           </div>
 
           <Link
-            href="/contact"
+            href="/contact/"
             className="magnetic grid h-36 w-36 sm:h-44 sm:w-44 shrink-0 place-items-center rounded-full bg-[#53664B] text-center text-xs sm:text-sm uppercase tracking-[0.2em] text-[#F8F6EF] font-medium transition-transform hover:scale-105 shadow-2xl focus:outline-none"
           >
             <span>
@@ -78,27 +78,27 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="transition hover:text-[#819568] hover:translate-x-1 inline-block">
+                <Link href="/about/" className="transition hover:text-[#819568] hover:translate-x-1 inline-block">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/stories" className="transition hover:text-[#819568] hover:translate-x-1 inline-block">
+                <Link href="/stories/" className="transition hover:text-[#819568] hover:translate-x-1 inline-block">
                   Portfolio Stories
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="transition hover:text-[#819568] hover:translate-x-1 inline-block">
+                <Link href="/services/" className="transition hover:text-[#819568] hover:translate-x-1 inline-block">
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="transition hover:text-[#819568] hover:translate-x-1 inline-block">
+                <Link href="/gallery/" className="transition hover:text-[#819568] hover:translate-x-1 inline-block">
                   Visual Gallery
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="transition hover:text-[#819568] hover:translate-x-1 inline-block">
+                <Link href="/contact/" className="transition hover:text-[#819568] hover:translate-x-1 inline-block">
                   Contact
                 </Link>
               </li>
@@ -199,7 +199,7 @@ export const Footer: React.FC = () => {
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 pb-8 text-xs text-[#EEEDE5]/60 md:flex-row md:px-12 border-t border-[#F8F6EF]/10 pt-6">
         <p>© 2026 Pause &amp; Hold Photography. Developed by Sanfollx Initiatives.</p>
         <div className="flex items-center gap-6">
-          <Link href="/privacy-policy" className="hover:text-white transition-colors">
+          <Link href="/privacy-policy/" className="hover:text-white transition-colors">
             Privacy Policy
           </Link>
           <button

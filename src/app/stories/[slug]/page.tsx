@@ -83,7 +83,7 @@ export default async function StoryDetailPage({ params }: PageProps) {
         {/* Navigation Breadcrumb Back Link */}
         <div className="px-4 sm:px-6 max-w-7xl mx-auto">
           <Link
-            href="/stories"
+            href="/stories/"
             className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-[#53664B] hover:text-[#3F4F39] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />

@@ -26,16 +26,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
-          rel="stylesheet"
-        />
-        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
+      <body className="min-h-screen flex flex-col bg-[#F8F6EF] text-[#292C25] font-sans antialiased selection:bg-[#53664B] selection:text-[#F8F6EF]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
@@ -44,8 +35,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-      </head>
-      <body className="min-h-screen flex flex-col bg-[#F8F6EF] text-[#292C25] font-sans antialiased selection:bg-[#53664B] selection:text-[#F8F6EF]">
         {/* Modern hairline scroll progress bar */}
         <ScrollProgress />
 

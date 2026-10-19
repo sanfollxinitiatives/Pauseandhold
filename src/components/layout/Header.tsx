@@ -9,11 +9,11 @@ import { Button } from '@/components/ui/Button';
 
 export const NAV_LINKS = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Portfolio', href: '/portfolio' },
-  { name: 'Services', href: '/services' },
-  { name: 'Journal', href: '/journal' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'About', href: '/about/' },
+  { name: 'Portfolio', href: '/portfolio/' },
+  { name: 'Services', href: '/services/' },
+  { name: 'Journal', href: '/journal/' },
+  { name: 'Contact', href: '/contact/' },
 ];
 
 export const Header: React.FC = () => {
@@ -109,7 +109,7 @@ export const Header: React.FC = () => {
           {/* Right Action: CTA & Mobile Hamburger */}
           <div className="flex items-center gap-3">
             <div className="hidden sm:block">
-              <Button href="/contact" size="sm" withArrow variant="primary" className="magnetic">
+              <Button href="/contact/" size="sm" withArrow variant="primary" className="magnetic">
                 Book Your Date
               </Button>
             </div>
@@ -194,7 +194,7 @@ export const Header: React.FC = () => {
 
           <div className="pt-4 border-t border-[#E4E2D8]">
             <Button
-              href="/contact"
+              href="/contact/"
               size="md"
               withArrow
               className="w-full text-center"

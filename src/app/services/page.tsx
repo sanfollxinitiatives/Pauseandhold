@@ -219,7 +219,7 @@ export default function ServicesPage() {
 
                 <div className="mt-10">
                   <Link
-                    href="/contact"
+                    href="/contact/"
                     className={`magnetic inline-flex w-full items-center justify-center rounded-full py-3.5 text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold transition-transform hover:scale-[1.03] shadow-lg ${
                       p.hot
                         ? 'bg-[#292C25] text-[#F8F6EF] hover:bg-[#1F211C]'

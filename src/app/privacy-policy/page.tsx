@@ -87,7 +87,7 @@ export default function PrivacyPolicyPage() {
             <p>
               If you have any questions or concerns regarding our privacy practices, please contact us through our{' '}
               <Link
-                href="/contact"
+                href="/contact/"
                 className="text-[#53664B] underline underline-offset-4 hover:text-[#3F4F39]"
               >
                 contact page

@@ -36,7 +36,7 @@ export const ContactCTA: React.FC<ContactCTAProps> = ({
 
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
-              href="/contact"
+              href="/contact/"
               size="lg"
               withArrow
               className="bg-[#F8F6EF] text-[#292C25] hover:bg-[#EEEDE5] shadow-lg"

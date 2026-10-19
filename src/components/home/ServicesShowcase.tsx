@@ -78,7 +78,7 @@ export const ServicesShowcase: React.FC = () => {
           </em>
         </h2>
         <Link
-          href="/services"
+          href="/services/"
           className="text-xs sm:text-sm uppercase tracking-[0.2em] font-medium text-[#53664B] hover:text-[#3F4F39] underline underline-offset-8 transition-colors"
         >
           All services →
@@ -89,7 +89,7 @@ export const ServicesShowcase: React.FC = () => {
         {SERVICES.map((s) => (
           <Link
             key={s.num}
-            href="/services"
+            href="/services/"
             className="svc-card group relative block aspect-[3/4] overflow-hidden rounded-3xl bg-[#292C25] text-[#F8F6EF] shadow-lg focus:outline-none"
           >
             <Image
