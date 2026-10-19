@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { getGSAP, prefersReducedMotion } from '@/lib/gsap';
-import { Heart, split } from '@/components/ui/MotionText';
+import { split } from '@/components/ui/MotionText';
 
 export const ShowcaseHero: React.FC = () => {
   const heroRef = useRef<HTMLElement>(null);
@@ -96,24 +96,6 @@ export const ShowcaseHero: React.FC = () => {
           </em>
         </h1>
 
-        {/* Circular Spinning Badge */}
-        <div className="hero-fade absolute bottom-16 right-6 hidden h-32 w-32 md:h-36 md:w-36 md:right-12 md:block">
-          <svg
-            viewBox="0 0 100 100"
-            className="h-full w-full animate-spin-slow fill-current text-[#EEEDE5]/90"
-          >
-            <defs>
-              <path
-                id="circlePath"
-                d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"
-              />
-            </defs>
-            <text className="text-[9.5px] uppercase tracking-[0.32em] font-medium">
-              <textPath href="#circlePath">pause · and · hold · forever · </textPath>
-            </text>
-          </svg>
-          <Heart className="absolute inset-0 m-auto h-8 w-8 animate-heartbeat text-[#819568]" />
-        </div>
 
         {/* Bottom Left Scroll Indicator */}
         <div className="hero-fade mt-10 sm:mt-12 flex items-center gap-4 text-[11px] sm:text-xs uppercase tracking-[0.3em] text-[#EEEDE5]/70">
