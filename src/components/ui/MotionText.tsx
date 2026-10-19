@@ -19,6 +19,6 @@ export const split = (text: string) =>
       key={i}
       className="inline-block overflow-hidden pb-[0.12em] align-bottom"
     >
-      <span className="word inline-block will-change-transform">{w}&nbsp;</span>
+      <span className="word inline-block will-change-transform">{`${w}\u00A0`}</span>
     </span>
   ));

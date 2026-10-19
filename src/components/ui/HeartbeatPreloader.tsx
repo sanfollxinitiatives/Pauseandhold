@@ -214,7 +214,7 @@ export const HeartbeatPreloader: React.FC<HeartbeatPreloaderProps> = ({ onComple
 
         {/* Numeric Percentage Counter */}
         <span className="pre-counter mt-4 font-display text-4xl sm:text-5xl tabular-nums font-light text-[#EEEDE5] will-change-[filter,transform,opacity]">
-          {count}%
+          {`${count}%`}
         </span>
       </div>
     </div>

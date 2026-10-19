@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { getGSAP, prefersReducedMotion } from '@/lib/gsap';
 import { PageHero } from '@/components/ui/PageHero';
 import { Heart, split } from '@/components/ui/MotionText';
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 
 const VALUES = [
   ['Presence', 'We arrive early, stay late, and never rush a feeling.'],
@@ -62,27 +63,7 @@ export default function AboutPage() {
         });
       });
 
-      // 3. Animated counters
-      gsap.utils.toArray<HTMLElement>('.about-count-num').forEach((el) => {
-        const target = Number(el.dataset['to'] || 0);
-        const suffix = el.dataset['suffix'] || '';
-        const counter = { val: 0 };
-
-        gsap.to(counter, {
-          val: target,
-          duration: 2.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-          },
-          onUpdate: () => {
-            el.textContent = Math.round(counter.val) + suffix;
-          },
-        });
-      });
-
-      // 4. Team card reveals
+      // 3. Team card reveals
       gsap.from('.team-card', {
         y: 60,
         opacity: 0,
@@ -136,13 +117,7 @@ export default function AboutPage() {
           <div className="mt-10 sm:mt-12 grid grid-cols-3 gap-6 border-t border-[#E4E2D8] pt-8">
             {STATS.map(({ target, suffix, label }) => (
               <div key={label}>
-                <div
-                  className="about-count-num font-display text-4xl sm:text-5xl font-light text-[#53664B] tabular-nums"
-                  data-to={target}
-                  data-suffix={suffix}
-                >
-                  0{suffix}
-                </div>
+                <AnimatedCounter target={target} suffix={suffix} />
                 <div className="mt-2 text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[#575A51] font-medium">
                   {label}
                 </div>

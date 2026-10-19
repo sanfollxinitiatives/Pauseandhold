@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { getGSAP, prefersReducedMotion } from '@/lib/gsap';
 import { split } from '@/components/ui/MotionText';
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 
 const STATS = [
   { target: 420, suffix: '+', label: 'Weddings' },
@@ -77,26 +78,6 @@ export const SplitStats: React.FC = () => {
           start: 'top 88%',
         },
       });
-
-      // 5. Counters
-      gsap.utils.toArray<HTMLElement>('.count-num').forEach((el) => {
-        const target = Number(el.dataset['to'] || 0);
-        const suffix = el.dataset['suffix'] || '';
-        const counter = { val: 0 };
-
-        gsap.to(counter, {
-          val: target,
-          duration: 2.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-          },
-          onUpdate: () => {
-            el.textContent = Math.round(counter.val) + suffix;
-          },
-        });
-      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -135,13 +116,7 @@ export const SplitStats: React.FC = () => {
         <div className="split-fade mt-10 sm:mt-12 grid grid-cols-3 gap-6 border-t border-[#E4E2D8] pt-8">
           {STATS.map(({ target, suffix, label }) => (
             <div key={label}>
-              <div
-                className="count-num font-display text-4xl sm:text-5xl font-light text-[#53664B] tabular-nums"
-                data-to={target}
-                data-suffix={suffix}
-              >
-                0{suffix}
-              </div>
+              <AnimatedCounter target={target} suffix={suffix} />
               <div className="mt-2 text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[#575A51] font-medium">
                 {label}
               </div>

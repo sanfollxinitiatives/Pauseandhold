@@ -11,6 +11,17 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     console.error('Global layout error caught:', error);
+    if (
+      error?.message?.includes('removeChild') ||
+      error?.message?.includes('Loading chunk') ||
+      error?.message?.includes('ChunkLoadError')
+    ) {
+      const hasReloaded = sessionStorage.getItem('p_h_global_reload');
+      if (!hasReloaded) {
+        sessionStorage.setItem('p_h_global_reload', '1');
+        window.location.reload();
+      }
+    }
   }, [error]);
 
   const handleHardRefresh = () => {

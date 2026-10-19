@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 import { SmoothScroll } from '@/components/ui/SmoothScroll';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { InteractiveCursor } from '@/components/ui/InteractiveCursor';
+import { DomSafetyShim } from '@/components/ui/DomSafetyShim';
 import { constructMetadata } from '@/lib/seo';
 import { getOrganizationJsonLd, getWebSiteJsonLd } from '@/lib/structured-data';
 
@@ -25,11 +26,20 @@ export default function RootLayout({
   const organizationSchema = getOrganizationJsonLd();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="notranslate"
+      translate="no"
+      suppressHydrationWarning
+    >
+      <head>
+        <meta name="google" content="notranslate" />
+      </head>
       <body
         suppressHydrationWarning
-        className="min-h-screen flex flex-col bg-[#F8F6EF] text-[#292C25] font-sans antialiased selection:bg-[#53664B] selection:text-[#F8F6EF]"
+        className="notranslate min-h-screen flex flex-col bg-[#F8F6EF] text-[#292C25] font-sans antialiased selection:bg-[#53664B] selection:text-[#F8F6EF]"
       >
+        <DomSafetyShim />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
