@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pause & Hold | Curating Timeless Stories</title>
+  <meta name="description" content="Pause & Hold is currently curating a new digital experience. We will be back shortly. For wedding photography inquiries, contact us directly.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #292C25;
+      color: #F8F6EF;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow-x: hidden;
+      padding: 2.5rem 1.5rem;
+    }
+    /* Subtle 35mm Film Grain Overlay */
+    .film-grain {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.055;
+      pointer-events: none;
+      z-index: 1;
+      animation: jitter 1s steps(8) infinite;
+    }
+    @keyframes jitter {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(2%, 2%); }
+      50% { transform: translate(-2%, -1%); }
+      75% { transform: translate(1%, -2%); }
+      100% { transform: translate(0, 0); }
+    }
+    .ambient-glow {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(129, 149, 104, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .wrapper {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+      justify-content: center;
+    }
+    .brand-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 2rem auto;
+    }
+    .brand-logo {
+      font-size: 1.15rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #F8F6EF;
+      text-decoration: none;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      color: #819568;
+      background: rgba(83, 102, 75, 0.2);
+      border: 1px solid rgba(129, 149, 104, 0.3);
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-weight: 500;
+    }
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #819568;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+    .heart-icon {
+      width: 42px;
+      height: 42px;
+      color: #819568;
+      margin-bottom: 2rem;
+      animation: heartbeat 2.2s infinite ease-in-out;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14% { transform: scale(1.18); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.1); }
+      70% { transform: scale(1); }
+    }
+    .eyebrow {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      color: #819568;
+      margin-bottom: 1.25rem;
+      font-weight: 500;
+    }
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: #F8F6EF;
+      margin-bottom: 1.5rem;
+    }
+    h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: #EEEDE5;
+      display: block;
+    }
+    p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 300;
+      line-height: 1.7;
+      color: #EEEDE5;
+      opacity: 0.82;
+      max-width: 620px;
+      margin: 0 auto 2.5rem auto;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      padding: 0.95rem 2rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: #53664B;
+      color: #F8F6EF;
+      border: 1px solid #53664B;
+    }
+    .btn-primary:hover {
+      background: #6A8160;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(83, 102, 75, 0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #F8F6EF;
+      border: 1px solid rgba(248, 246, 239, 0.25);
+    }
+    .btn-outline:hover {
+      border-color: #F8F6EF;
+      background: rgba(248, 246, 239, 0.06);
+      transform: translateY(-2px);
+    }
+    .footer-bar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto 0 auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(248, 246, 239, 0.12);
+      font-size: 0.78rem;
+      color: rgba(238, 237, 229, 0.6);
+      letter-spacing: 0.08em;
+    }
+    .footer-bar a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-bar a:hover {
+      color: #F8F6EF;
+    }
+    @media (max-width: 640px) {
+      .brand-top {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      .footer-bar {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="film-grain" aria-hidden="true"></div>
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- Top Bar -->
+  <header class="brand-top">
+    <a href="#" class="brand-logo">Pause &amp; Hold</a>
+    <div class="status-badge">
+      <span class="pulse-dot"></span>
+      <span>Under Curation</span>
+    </div>
+  </header>
+
+  <!-- Centered Content -->
+  <main class="wrapper">
+    <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>
+
+    <p class="eyebrow">Pause &amp; Hold · Est. 2014</p>
+    <h1>
+      Some moments deserve
+      <em>a thoughtful return.</em>
+    </h1>
+
+    <p>
+      Our new digital portfolio is currently being curated with quiet care. 
+      We are fully available for upcoming wedding bookings, destination stories, and private commissions worldwide.
+    </p>
+
+    <div class="actions">
+      <a href="mailto:hello@pauseandhold.com" class="btn btn-primary">
+        Book Your Date &rarr;
+      </a>
+      <a href="tel:+919800000000" class="btn btn-outline">
+        +91 98000 00000
+      </a>
+    </div>
+  </main>
+
+  <!-- Bottom Bar -->
+  <footer class="footer-bar">
+    <span>&copy; 2026 Pause &amp; Hold. All rights reserved.</span>
+    <span>Fort Kochi · Kerala · Worldwide</span>
+  </footer>
+</body>
+</html>
