@@ -55,6 +55,13 @@ export function constructMetadata({
     alternates: {
       canonical: url,
     },
+    icons: {
+      icon: [
+        { url: '/icon.svg', type: 'image/svg+xml' },
+        { url: '/favicon.ico', sizes: 'any' },
+      ],
+      apple: '/apple-icon.png',
+    },
     openGraph: {
       title: fullTitle,
       description,
