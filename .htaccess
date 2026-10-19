@@ -2,10 +2,10 @@
 # Hostinger LiteSpeed / Apache Configuration for Next.js Static Export
 # ----------------------------------------------------------------------
 
-# 1. Prevent Directory Browsing (Fixes 403 Forbidden)
+# 1. Prevent Directory Browsing
 Options -Indexes
 
-# 2. Set Default Index Documents
+# 2. Set Default Index File
 DirectoryIndex index.html
 
 # 3. Enable URL Rewriting
@@ -22,15 +22,7 @@ DirectoryIndex index.html
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Clean URLs: Map /portfolio to portfolio.html
-  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
-  RewriteRule ^(.*)$ $1.html [L]
-
-  # Clean URLs: Map /portfolio/ to portfolio/index.html
-  RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
-  RewriteRule ^(.*)$ $1/index.html [L]
-
-  # Custom 404 page
+  # Custom 404 Error Page
   ErrorDocument 404 /404.html
 </IfModule>
 
@@ -39,7 +31,7 @@ DirectoryIndex index.html
   AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
 </IfModule>
 
-# 5. Browser Caching for Performance
+# 5. Browser Caching for Maximum Speed
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault "access plus 1 month"
