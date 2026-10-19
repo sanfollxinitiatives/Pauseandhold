@@ -41,7 +41,7 @@ export default function StoriesPage() {
             >
               {/* Cover Image */}
               <Link
-                href={`/stories/${story.slug}`}
+                href={`/stories/${story.slug}/`}
                 className="relative aspect-[4/5] w-full overflow-hidden bg-[#EEEDE5] block"
                 aria-label={`View full story: ${story.title}`}
               >
@@ -80,7 +80,7 @@ export default function StoriesPage() {
                   </div>
 
                   <h2 className="text-xl sm:text-2xl font-light text-[#292C25] group-hover:text-[#53664B] transition-colors">
-                    <Link href={`/stories/${story.slug}`}>{story.title}</Link>
+                    <Link href={`/stories/${story.slug}/`}>{story.title}</Link>
                   </h2>
 
                   <p className="mt-3 text-xs sm:text-sm text-[#575A51] font-light leading-relaxed">
@@ -93,7 +93,7 @@ export default function StoriesPage() {
                     {story.couple}
                   </span>
                   <Link
-                    href={`/stories/${story.slug}`}
+                    href={`/stories/${story.slug}/`}
                     className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider text-[#53664B] uppercase group-hover:text-[#3F4F39]"
                   >
                     <span>Read Journal</span>

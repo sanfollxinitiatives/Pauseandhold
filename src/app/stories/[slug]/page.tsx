@@ -204,7 +204,7 @@ export default async function StoryDetailPage({ params }: PageProps) {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-6">
             {prevStory ? (
               <Link
-                href={`/stories/${prevStory.slug}`}
+                href={`/stories/${prevStory.slug}/`}
                 className="group flex items-center gap-4 text-left p-4 rounded-2xl hover:bg-[#EEEDE5]/60 transition-colors"
               >
                 <div className="w-10 h-10 rounded-full bg-[#EEEDE5] flex items-center justify-center text-[#292C25] group-hover:bg-[#53664B] group-hover:text-white transition-colors shrink-0">
@@ -225,7 +225,7 @@ export default async function StoryDetailPage({ params }: PageProps) {
 
             {nextStory ? (
               <Link
-                href={`/stories/${nextStory.slug}`}
+                href={`/stories/${nextStory.slug}/`}
                 className="group flex items-center justify-end gap-4 text-right p-4 rounded-2xl hover:bg-[#EEEDE5]/60 transition-colors sm:ml-auto"
               >
                 <div>

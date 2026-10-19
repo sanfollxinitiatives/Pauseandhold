@@ -177,10 +177,17 @@ export default function GlobalError({
             <button
               type="button"
               className="btn-primary"
-              onClick={handleHardRefresh}
+              onClick={() => {
+                try {
+                  reset();
+                } catch {
+                  handleHardRefresh();
+                }
+              }}
             >
               Refresh Page
             </button>
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/" className="btn-secondary">
               Go to Homepage
             </a>

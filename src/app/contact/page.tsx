@@ -69,12 +69,13 @@ export default function ContactPage() {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="grid gap-6 sm:grid-cols-2">
+            <form onSubmit={handleSubmit} className="grid gap-6 sm:grid-cols-2" aria-label="Contact enquiry form">
               <div>
                 <input
                   required
                   type="text"
                   placeholder="Your names"
+                  aria-label="Your names"
                   className={FIELD_STYLE}
                 />
               </div>
@@ -84,6 +85,7 @@ export default function ContactPage() {
                   required
                   type="email"
                   placeholder="Email"
+                  aria-label="Your email address"
                   className={FIELD_STYLE}
                 />
               </div>
@@ -100,6 +102,7 @@ export default function ContactPage() {
                 <input
                   type="text"
                   placeholder="Venue / city"
+                  aria-label="Venue or city"
                   className={FIELD_STYLE}
                 />
               </div>
@@ -123,6 +126,7 @@ export default function ContactPage() {
                 <textarea
                   rows={4}
                   placeholder="Tell us about you two…"
+                  aria-label="Tell us about you two"
                   className={`${FIELD_STYLE} resize-none`}
                 />
               </div>

@@ -19,8 +19,10 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
 
   useEffect(() => {
     if (prefersReducedMotion() || typeof window === 'undefined') {
-      setVal(target);
-      return;
+      const timer = setTimeout(() => {
+        setVal(target);
+      }, 0);
+      return () => clearTimeout(timer);
     }
 
     try {
@@ -48,7 +50,10 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
         }
       };
     } catch {
-      setVal(target);
+      const timer = setTimeout(() => {
+        setVal(target);
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [target]);
 

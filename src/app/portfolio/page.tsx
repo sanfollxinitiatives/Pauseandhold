@@ -70,7 +70,7 @@ export default function PortfolioPage() {
           {filteredItems.map((item, i) => (
             <Link
               key={`${activeCategory}-${item.id}`}
-              href={`/stories/${item.slug}`}
+              href={`/stories/${item.slug}/`}
               className="group mb-6 block break-inside-avoid animate-in fade-in slide-in-from-bottom-6 duration-700 focus:outline-none"
               style={{ animationDelay: `${i * 70}ms`, animationFillMode: 'both' }}
             >

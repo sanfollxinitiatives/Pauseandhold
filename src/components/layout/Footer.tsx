@@ -130,15 +130,17 @@ export const Footer: React.FC = () => {
             </ul>
             <div className="mt-6 flex gap-2.5">
               {[
-                { label: 'In', title: 'Instagram' },
-                { label: 'Pi', title: 'Pinterest' },
-                { label: 'Yo', title: 'YouTube' },
-                { label: 'Vi', title: 'Vimeo' },
-              ].map(({ label, title }) => (
+                { label: 'In', title: 'Instagram', href: 'https://instagram.com/pauseandhold' },
+                { label: 'Pi', title: 'Pinterest', href: 'https://pinterest.com/pauseandhold' },
+                { label: 'Yo', title: 'YouTube', href: 'https://youtube.com/@pauseandhold' },
+                { label: 'Vi', title: 'Vimeo', href: 'https://vimeo.com/pauseandhold' },
+              ].map(({ label, title, href }) => (
                 <a
                   key={title}
-                  href="#"
-                  aria-label={title}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit Pause & Hold on ${title}`}
                   className="grid h-9 w-9 place-items-center rounded-full border border-[#F8F6EF]/20 text-xs text-[#EEEDE5] transition hover:-translate-y-1 hover:bg-[#53664B] hover:border-[#53664B]"
                 >
                   {label}
@@ -163,6 +165,7 @@ export const Footer: React.FC = () => {
             ) : (
               <form
                 className="mt-5 flex border-b border-[#F8F6EF]/30"
+                aria-label="Newsletter subscription form"
                 onSubmit={(e) => {
                   e.preventDefault();
                   setNewsletterSent(true);
@@ -172,11 +175,12 @@ export const Footer: React.FC = () => {
                   required
                   type="email"
                   placeholder="Your email"
+                  aria-label="Email address for monthly letters"
                   className="w-full bg-transparent py-2.5 text-xs sm:text-sm outline-none placeholder:text-[#EEEDE5]/40 text-[#F8F6EF]"
                 />
                 <button
                   type="submit"
-                  className="text-xs uppercase tracking-[0.2em] font-semibold text-[#819568] hover:text-[#E2E8DC] transition-colors px-2"
+                  className="text-xs uppercase tracking-[0.2em] font-semibold text-[#819568] hover:text-[#E2E8DC] transition-colors px-2 cursor-pointer"
                 >
                   Join
                 </button>

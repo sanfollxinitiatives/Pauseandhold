@@ -107,7 +107,7 @@ export default function JournalPage() {
         {/* Featured Article */}
         <article className="group grid items-center gap-10 md:grid-cols-[1.3fr_1fr] pb-16 sm:pb-24 border-b border-[#E4E2D8]">
           <Link
-            href={`/stories/${featured.slug}`}
+            href={`/stories/${featured.slug}/`}
             className="journal-feat-mask aspect-[16/10] overflow-hidden rounded-3xl bg-[#EEEDE5] shadow-xl relative block will-change-transform"
           >
             <Image
@@ -124,13 +124,13 @@ export default function JournalPage() {
               Featured · {featured.cat}
             </p>
             <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-light leading-tight text-[#292C25] group-hover:text-[#53664B] transition-colors">
-              <Link href={`/stories/${featured.slug}`}>{featured.title}</Link>
+              <Link href={`/stories/${featured.slug}/`}>{featured.title}</Link>
             </h2>
             <p className="mt-4 text-sm sm:text-base text-[#575A51] font-light leading-relaxed">
               {featured.desc}
             </p>
             <Link
-              href={`/stories/${featured.slug}`}
+              href={`/stories/${featured.slug}/`}
               className="mt-6 sm:mt-8 inline-block text-xs uppercase tracking-[0.2em] font-semibold text-[#53664B] transition group-hover:translate-x-2"
             >
               Read story →
@@ -142,7 +142,7 @@ export default function JournalPage() {
         <div className="journal-grid mt-16 sm:mt-24 grid gap-10 sm:gap-12 sm:grid-cols-2">
           {rest.map((p) => (
             <article key={p.title} className="journal-card group cursor-pointer">
-              <Link href={`/stories/${p.slug}`} className="block">
+              <Link href={`/stories/${p.slug}/`} className="block">
                 <div className="aspect-[4/3] overflow-hidden rounded-3xl bg-[#EEEDE5] shadow-md relative">
                   <Image
                     src={p.img}
